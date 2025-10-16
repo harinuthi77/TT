@@ -1,0 +1,2550 @@
+{
+  "iteration": 1,
+  "task": "find me best polishing kit  for both interior and exterior like multiple times using for my car 540i 2019 and find me whats the consumers most favourite lookup everywhere find me a kit",
+  "success": false,
+  "timestamp": "2025-10-11T19:50:38.942254",
+  "data": {
+    "products": [],
+    "forms": [
+      {
+        "id": "nav-search-bar-form",
+        "action": "https://www.amazon.com/s/ref=nb_sb_noss",
+        "method": "get",
+        "fields": [
+          {
+            "type": "select-one",
+            "name": "url",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "text",
+            "name": "field-keywords",
+            "placeholder": "Search Amazon",
+            "required": false
+          },
+          {
+            "type": "submit",
+            "name": "",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-1",
+        "action": "https://www.amazon.com/s",
+        "method": "get",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "k",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "crid",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "qid",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "sprefix",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "ref",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "select-one",
+            "name": "s",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-2",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_1_sspa&sr=8-1&qid=1760230194&discoveredAsins.0=B0DT8WN7J7",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-3",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_2_sspa&sr=8-2&qid=1760230194&discoveredAsins.0=B0DWSYN243",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-4",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_3_sspa&sr=8-3&qid=1760230194&discoveredAsins.0=B0DSD4MCR9",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-5",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_4_sspa&sr=8-4&qid=1760230194&discoveredAsins.0=B0F5HHFYHR",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-6",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_5&sr=8-5&qid=1760230194&discoveredAsins.0=B0732FCCL4",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-7",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_6&sr=8-6&qid=1760230194&discoveredAsins.0=B07FTRZLM5",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-8",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_7&sr=8-7&qid=1760230194&discoveredAsins.0=B0C3SC58RM",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-9",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_1_sspa_w&sr=1-1-6024b2a3-78e4-4fed-8fed-e1613be3bcce&qid=1760230194&discoveredAsins.0=B01IRXD3OG",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-10",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_2_sspa_w&sr=1-2-6024b2a3-78e4-4fed-8fed-e1613be3bcce&qid=1760230194&discoveredAsins.0=B0732FCCL4",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-11",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_3_sspa_w&sr=1-3-6024b2a3-78e4-4fed-8fed-e1613be3bcce&qid=1760230194&discoveredAsins.0=B07XQRYN2P",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-12",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_4_sspa_w&sr=1-4-6024b2a3-78e4-4fed-8fed-e1613be3bcce&qid=1760230194&discoveredAsins.0=B0DSD4MCR9",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-13",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_5_sspa_w&sr=1-5-6024b2a3-78e4-4fed-8fed-e1613be3bcce&qid=1760230194&discoveredAsins.0=B08CZG8JB4",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-14",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_8&sr=8-8&qid=1760230194&discoveredAsins.0=B01J588UL8",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-15",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_9&sr=8-9&qid=1760230194&discoveredAsins.0=B01IRXD3OG",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-16",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_10&sr=8-10&qid=1760230194&discoveredAsins.0=B0DJ59MPV2",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-17",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_11_sspa&sr=8-11&qid=1760230194&discoveredAsins.0=B0FH6CPT28",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-18",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_12_sspa&sr=8-12&qid=1760230194&discoveredAsins.0=B0732FCCL4",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-19",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_13_sspa&sr=8-13&qid=1760230194&discoveredAsins.0=B0FGTVD614",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-20",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_14_sspa&sr=8-14&qid=1760230194&discoveredAsins.0=B089N83CWF",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-21",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_15&sr=8-15&qid=1760230194&discoveredAsins.0=B0C2ZGXQ6Z",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-22",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_16&sr=8-16&qid=1760230194&discoveredAsins.0=B0BFDTBCJW",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-23",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_17&sr=8-17&qid=1760230194&discoveredAsins.0=B0DRBC324L",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-24",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_18&sr=8-18&qid=1760230194&discoveredAsins.0=B0CHMD7WMQ",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-25",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_19_sspa&sr=8-19&qid=1760230194&discoveredAsins.0=B0968FJKVF",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-26",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_20_sspa&sr=8-20&qid=1760230194&discoveredAsins.0=B077P6CBHZ",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-27",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_21_sspa&sr=8-21&qid=1760230194&discoveredAsins.0=B0DN61WVXZ",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-28",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_23&sr=8-23&qid=1760230194&discoveredAsins.0=B071FRWWRF",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-29",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_24&sr=8-24&qid=1760230194&discoveredAsins.0=B0BD7397YT",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-30",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_25&sr=8-25&qid=1760230194&discoveredAsins.0=B0BQN7J6XB",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-31",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_26&sr=8-26&qid=1760230194&discoveredAsins.0=B0DRJ1Q5DF",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-32",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_27&sr=8-27&qid=1760230194&discoveredAsins.0=B0DLCVT381",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-33",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_28&sr=8-28&qid=1760230194&discoveredAsins.0=B07PGQTNR6",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-34",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_29&sr=8-29&qid=1760230194&discoveredAsins.0=B0DZ6LZNQF",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-35",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_30&sr=8-30&qid=1760230194&discoveredAsins.0=B0DLCFQXVP",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-36",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_31&sr=8-31&qid=1760230194&discoveredAsins.0=B0CW5P5KK6",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-37",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_32&sr=8-32&qid=1760230194&discoveredAsins.0=B06WVL7YSG",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-38",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_33&sr=8-33&qid=1760230194&discoveredAsins.0=B0DYJZ233N",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-39",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_34&sr=8-34&qid=1760230194&discoveredAsins.0=B08CZG8JB4",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-40",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_35&sr=8-35&qid=1760230194&discoveredAsins.0=B09VXDKWDG",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-41",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_37&sr=8-37&qid=1760230194&discoveredAsins.0=B09R5TGLFR",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-42",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_38&sr=8-38&qid=1760230194&discoveredAsins.0=B0050M7V78",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-43",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_39&sr=8-39&qid=1760230194&discoveredAsins.0=B09WDZ94CT",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-44",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_41&sr=8-41&qid=1760230194&discoveredAsins.0=B08DWGT56W",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-45",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_42&sr=8-42&qid=1760230194&discoveredAsins.0=B00P67GSRG",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-46",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_43&sr=8-43&qid=1760230194&discoveredAsins.0=B0CYQ7CGYC",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-47",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_44&sr=8-44&qid=1760230194&discoveredAsins.0=B005A2R628",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-48",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_46&sr=8-46&qid=1760230194&discoveredAsins.0=B002NUJFTM",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-49",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_47&sr=8-47&qid=1760230194&discoveredAsins.0=B01M05F4U5",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-50",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_48&sr=8-48&qid=1760230194&discoveredAsins.0=B08YPBNN3V",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-51",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_50&sr=8-50&qid=1760230194&discoveredAsins.0=B07HNHC828",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-52",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_51&sr=8-51&qid=1760230194&discoveredAsins.0=B0DJ56TX3H",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-53",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_52&sr=8-52&qid=1760230194&discoveredAsins.0=B0BRBSXLKP",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-54",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_53&sr=8-53&qid=1760230194&discoveredAsins.0=B001O7PNNM",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-55",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_54&sr=8-54&qid=1760230194&discoveredAsins.0=B0BQ1CPLSQ",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-56",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_55&sr=8-55&qid=1760230194&discoveredAsins.0=B0C7VXB4KM",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-57",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_56&sr=8-56&qid=1760230194&discoveredAsins.0=B0F9NYNZR1",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-58",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_57&sr=8-57&qid=1760230194&discoveredAsins.0=B07QY9FLLT",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-59",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_58&sr=8-58&qid=1760230194&discoveredAsins.0=B0F9L15W39",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-60",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_59&sr=8-59&qid=1760230194&discoveredAsins.0=B075QPTDVC",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-61",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_60&sr=8-60&qid=1760230194&discoveredAsins.0=B0DF2DR12Z",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-62",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_1_sspa_w&sr=1-1-fb395260-7243-4e30-82ce-3176e35831b6&qid=1760230194&discoveredAsins.0=B089N83CWF",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-63",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_3_sspa_w&sr=1-3-fb395260-7243-4e30-82ce-3176e35831b6&qid=1760230194&discoveredAsins.0=B07XQRYN2P",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-64",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_4_sspa_w&sr=1-4-fb395260-7243-4e30-82ce-3176e35831b6&qid=1760230194&discoveredAsins.0=B09TC7XBC4",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-65",
+        "action": "https://www.amazon.com/cart/add-to-cart?ref=sr_atc_rt_add_5_sspa_w&sr=1-5-fb395260-7243-4e30-82ce-3176e35831b6&qid=1760230194&discoveredAsins.0=B0081KYBEM",
+        "method": "post",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "anti-csrftoken-a2z",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "clientName",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][asin]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][offerListingId]",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "items[0.base][quantity]",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-66",
+        "action": "https://www.amazon.com/s",
+        "method": "get",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "k",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "crid",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "qid",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "rnid",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "sprefix",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "ref",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "low-price",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "hidden",
+            "name": "high-price",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "range",
+            "name": "",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "range",
+            "name": "",
+            "placeholder": "",
+            "required": false
+          },
+          {
+            "type": "submit",
+            "name": "",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      },
+      {
+        "id": "form-67",
+        "action": "https://www.amazon.com/get",
+        "method": "get",
+        "fields": [
+          {
+            "type": "hidden",
+            "name": "ue_back",
+            "placeholder": "",
+            "required": false
+          }
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "rows": 1,
+        "cols": 1,
+        "hasHeaders": false
+      }
+    ],
+    "text": "Skip to\nMain content\nResults\nFilters\nKeyboard shortcuts\nSearch\nalt\n+\n/\nCart\nshift\n+\nalt\n+\nC\nHome\nshift\n+\nalt\n+\nH\nOrders\nshift\n+\nalt\n+\nO\nShow/Hide shortcuts\nshift\n+\nalt\n+\nZ\nTo move between items, use your keyboard's up or down arrows.\nDelivering to Fort Smith 72903\nUpdate location\nAll\nAll Departments\nAlexa Skills\nAmazon Devices\nAmazon Global Store\nAmazon Haul\nAmazon One Medical\nAmazon Pharmacy\nAmazon Resale\nAppliances\nApps & Games\nArts, Crafts & Sewing\nAudible Books & Originals\nAutomotive Parts & Accessories\nBaby\nBeauty & Personal Care\nBooks\nCDs & Vinyl\nCell Phones & Accessories\nClothing, Shoes & Jewelry\nWomen's Clothing, Shoes & Jewelry\nMen's Clothing, Shoes & Jewelry\nGirl's Clothing, Shoes & Jewelry\nBoy's Clothing, Shoes & Jewelry\nBaby Clothing, Shoes & Jewelry\nCollectibles & Fine Art\nComputers\nCredit and Payment Cards\nDigital Music\nElectronics\nGarden & Outdoor\nGift Cards\nGrocery & Gourmet Food\nHandmade\nHealth, Household & Baby Care\nHome & Business Services\nHome & Kitchen\nIndustrial & Scientific\nJust for Prime\nKindle Store\nLuggage & Travel Gear\nLuxury Stores\nMagazine Subscriptions\nMovies & TV\nMusical Instruments\nOffice Products\nPet Supplies\nPremium Beauty\nPrime Video\nSmart Home\nSoftware\nSports & Outdoors\nSubscribe & Save\nSubscription Boxes\nTools & Home Improvement\nToys & Games\nUnder $10\nVideo Games\nEN\nHello, sign in\nAccount & Lists\nReturns\n& Orders\n0\nCart\nAll\nMedical Care\nLuxury\nBest Sellers\nAmazon Basics\nNew Releases\nRegistry\nToday's Deals\nGift Cards\nSmart Home\nPrime\nCustomer Service\nSports & Outdoors\nMusic\nPharmacy\nShop By Interest\nAmazon Home\nFashion\nSell\nAutomotive\nToys & Games\nBeauty & Personal Care\nHome Improvement\nComputers\n1-48 of 307 results for \"car polishing kit interior exterior complete\"\nSort by:\nFeatured\nPrice: Low to High\nPrice: High to Low\nAvg. Customer Review\nNewest Arrivals\nBest Sellers\nSort by:Featured\nBring Your Car Back To Life\nShop Chemical\u00a0Guys\u00a0\nChemical Guys BUF_503X TORQX Random Orbital Polisher, Pads, Polishes & Compounds Kit (Safe for Car",
+    "metadata": {
+      "title": "Amazon.com : car polishing kit interior exterior complete",
+      "url": "https://www.amazon.com/s?k=car+polishing+kit+interior+exterior+complete&crid=3G7W25UL0IDJC&sprefix=car+polishing+kit+interior+exterior+complete%2Caps%2C128&ref=nb_sb_noss",
+      "domain": "www.amazon.com",
+      "hasSearch": true,
+      "hasFilters": true,
+      "hasCart": true,
+      "hasPagination": true
+    }
+  }
+}

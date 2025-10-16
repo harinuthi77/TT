@@ -1,0 +1,669 @@
+# vision.py
+# =============================================================================
+# AGENT VISUAL PERCEPTION SYSTEM - CORRECTED IMPORTS
+# Detects elements, draws labels, extracts data, analyzes page structure
+# =============================================================================
+
+from playwright.sync_api import Page
+from PIL import Image, ImageDraw, ImageFont
+import io
+import base64
+import re
+from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+
+# ===== FIXED: Use relative import since we're in same package =====
+from src.core.memory import AgentMemory, extract_domain
+
+
+class Vision:
+    """
+    Visual perception system that sees and understands web pages.
+    Creates labeled screenshots for Claude to see element IDs.
+    """
+    
+    def __init__(self, memory: AgentMemory = None, debug: bool = False):
+        """
+        Initialize vision system.
+        
+        Args:
+            memory: Optional AgentMemory instance for learning which elements work
+            debug: Enable debug output
+        """
+        self.memory = memory
+        self.debug = debug
+        self.last_screenshot = None
+        self.last_elements = []
+        
+    # =========================================================================
+    # ELEMENT DETECTION - FIXED VERSION
+    # =========================================================================
+    
+    def detect_all_elements(self, page: Page) -> List[Dict]:
+        """
+        FIXED: Detect ALL interactive elements with improved selectors and visibility.
+        Based on validated_agent.py - proven to work on Cars.com, Walmart, etc.
+        
+        Returns:
+            List of element dicts with id, tag, text, coordinates, visibility
+        """
+        
+        if self.debug:
+            print(f"   ?? Scanning page for interactive elements...")
+        
+        # IMPROVED JavaScript - catches 3x more elements
+        # FIXED: Use raw string to avoid escape sequence warnings
+        js_code = r"""
+        () => {
+            const elements = [];
+            let elementId = 1;
+            
+            // EXPANDED SELECTOR LIST - comprehensive coverage
+            const allElements = document.querySelectorAll(
+                'a, button, input, textarea, select, ' +
+                '[role="button"], [role="link"], [role="tab"], ' +
+                '[role="menuitem"], [role="option"], [role="slider"], ' +
+                '[onclick], [data-testid], [aria-label], ' +
+                'label, [type="submit"], [type="checkbox"], ' +
+                '[type="radio"], summary, [class*="btn"], [class*="link"]'
+            );
+            
+            allElements.forEach(el => {
+                try {
+                    const rect = el.getBoundingClientRect();
+                    const style = window.getComputedStyle(el);
+                    
+                    // RELAXED VISIBILITY - sees elements 200px off-screen
+                    const isVisible = (
+                        rect.width > 0 && 
+                        rect.height > 0 &&
+                        style.display !== 'none' &&
+                        style.visibility !== 'hidden' &&
+                        style.opacity !== '0' &&
+                        rect.top < window.innerHeight + 200 &&
+                        rect.bottom > -200
+                    );
+                    
+                    if (!isVisible) return;
+                    
+                    // COMPREHENSIVE TEXT EXTRACTION
+                    const text = (
+                        el.innerText ||
+                        el.textContent ||
+                        el.value ||
+                        el.placeholder ||
+                        el.getAttribute('aria-label') ||
+                        el.getAttribute('title') ||
+                        el.getAttribute('alt') ||
+                        el.getAttribute('data-testid') ||
+                        ''
+                    ).trim();
+                    
+                    // EXTRACT ALL ATTRIBUTES
+                    const tag = el.tagName.toLowerCase();
+                    const type = el.type || '';
+                    const role = el.getAttribute('role') || '';
+                    const href = el.href || '';
+                    const className = el.className || '';
+                    const id = el.id || '';
+                    
+                    // SLIDER-SPECIFIC ATTRIBUTES
+                    const min = el.min || '';
+                    const max = el.max || '';
+                    const value = el.value || '';
+                    
+                    // Calculate center position
+                    const centerX = Math.round(rect.left + rect.width / 2);
+                    const centerY = Math.round(rect.top + rect.height / 2);
+                    
+                    // Determine if currently in viewport
+                    const inViewport = (
+                        rect.top >= 0 && 
+                        rect.top <= window.innerHeight &&
+                        rect.left >= 0 &&
+                        rect.left <= window.innerWidth
+                    );
+                    
+                    elements.push({
+                        id: elementId++,
+                        tag: tag,
+                        type: type,
+                        role: role,
+                        text: text.substring(0, 200),
+                        href: href,
+                        className: className,
+                        elementId: id,
+                        min: min,
+                        max: max,
+                        value: value,
+                        x: centerX,
+                        y: centerY,
+                        top: Math.round(rect.top),
+                        left: Math.round(rect.left),
+                        width: Math.round(rect.width),
+                        height: Math.round(rect.height),
+                        visible: inViewport,
+                        zIndex: style.zIndex || 'auto'
+                    });
+                } catch (err) {
+                    // Skip problematic elements
+                }
+            });
+            
+            // Sort by visual importance (visible first, then by position)
+            elements.sort((a, b) => {
+                if (a.visible !== b.visible) return b.visible - a.visible;
+                return a.top - b.top;
+            });
+            
+            return elements;
+        }
+        """
+        
+        try:
+            elements = page.evaluate(js_code)
+            self.last_elements = elements
+
+    def _add_visual_highlights(self, page, elements):
+        """Add visual green boxes with numbers on the browser page"""
+        
+        highlight_js = """
+        (elements) => {
+            // Remove old highlights
+            document.querySelectorAll('.agent-highlight, .agent-label').forEach(el => el.remove());
+            
+            // Add CSS if not present
+            if (!document.getElementById('agent-highlight-style')) {
+                const style = document.createElement('style');
+                style.id = 'agent-highlight-style';
+                style.textContent = `
+                    .agent-highlight {
+                        position: absolute !important;
+                        border: 3px solid #00ff00 !important;
+                        background: rgba(0, 255, 0, 0.15) !important;
+                        pointer-events: none !important;
+                        z-index: 2147483647 !important;
+                        box-sizing: border-box !important;
+                    }
+                    .agent-label {
+                        position: absolute !important;
+                        background: #00ff00 !important;
+                        color: #000 !important;
+                        padding: 4px 8px !important;
+                        font-size: 14px !important;
+                        font-weight: bold !important;
+                        font-family: monospace !important;
+                        pointer-events: none !important;
+                        z-index: 2147483647 !important;
+                        border-radius: 3px !important;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Add highlights for first 50 visible elements
+            let count = 0;
+            elements.forEach(elem => {
+                if (!elem.visible || count >= 50) return;
+                
+                // Create highlight box
+                const box = document.createElement('div');
+                box.className = 'agent-highlight';
+                box.style.left = elem.left + 'px';
+                box.style.top = elem.top + 'px';
+                box.style.width = elem.width + 'px';
+                box.style.height = elem.height + 'px';
+                
+                // Create label
+                const label = document.createElement('div');
+                label.className = 'agent-label';
+                label.textContent = '[' + elem.id + ']';
+                label.style.left = elem.left + 'px';
+                label.style.top = Math.max(0, elem.top - 25) + 'px';
+                
+                document.body.appendChild(box);
+                document.body.appendChild(label);
+                
+                count++;
+            });
+            
+            console.log('Agent: Added ' + count + ' element highlights');
+            return count;
+        }
+        """
+        
+        try:
+            count = page.evaluate(highlight_js, elements[:50])
+            if self.debug:
+                print(f"   Added {count} green highlight boxes to page")
+            return count
+        except Exception as e:
+            if self.debug:
+                print(f"   Warning: Could not add visual highlights: {e}")
+            return 0
+            
+            # Count visible vs nearby
+            visible_count = len([e for e in elements if e.get('visible', False)])
+            
+            if self.debug:
+                print(f"   Found {len(elements)} elements ({visible_count} visible)")
+            
+            # ===== INTERLINK: Enrich with memory insights =====
+            if self.memory:
+                domain = extract_domain(page.url)
+                for element in elements:
+                    # Check if this selector pattern was successful before
+                    selector = f"{element['tag']}"
+                    if element.get('className'):
+                        selector += f".{element['className'].split()[0]}"
+                    
+                    past_successes = self.memory.get_best_selectors(domain, 'click', selector)
+                    if past_successes:
+                        element['learned_success'] = True
+                        element['success_count'] = past_successes[0]['success_count']
+            
+            return elements
+            
+        except Exception as e:
+            print(f"   ? Element detection error: {e}")
+            return []
+    
+    # =========================================================================
+    # VISUAL LABELING - DRAW NUMBERED BOXES
+    # =========================================================================
+    
+    def create_labeled_screenshot(self, page: Page, elements: List[Dict] = None) -> Tuple[bytes, str]:
+        """
+        Creates a screenshot with numbered boxes on interactive elements.
+        This is KEY for Claude to see what it can interact with!
+        
+        Returns:
+            (screenshot_bytes, base64_string)
+        """
+        
+        # Get elements if not provided
+        if elements is None:
+            elements = self.detect_all_elements(page)
+        
+        # Take base screenshot
+        try:
+            screenshot_bytes = page.screenshot(full_page=False)
+        except Exception as e:
+            print(f"   ? Screenshot error: {e}")
+            return None, None
+        
+        # Open with PIL to draw on it
+        try:
+            image = Image.open(io.BytesIO(screenshot_bytes))
+            draw = ImageDraw.Draw(image)
+            
+            # Try to use a nice font, fallback to default
+            try:
+                font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 16)
+                font_small = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 12)
+            except:
+                try:
+                    font = ImageFont.truetype("arial.ttf", 16)
+                    font_small = ImageFont.truetype("arial.ttf", 12)
+                except:
+                    font = ImageFont.load_default()
+                    font_small = ImageFont.load_default()
+            
+            # Draw labels on visible elements
+            labeled_count = 0
+            for elem in elements:
+                if not elem.get('visible', False):
+                    continue
+                    
+                if labeled_count >= 50:  # Limit labels to avoid clutter
+                    break
+                
+                # Get coordinates
+                x, y = elem['x'], elem['y']
+                width, height = elem['width'], elem['height']
+                top, left = elem['top'], elem['left']
+                
+                # Skip tiny elements
+                if width < 20 or height < 10:
+                    continue
+                
+                # Choose color based on element type
+                if elem['tag'] == 'input':
+                    color = (52, 152, 219)  # Blue for inputs
+                    fill_color = (52, 152, 219, 50)
+                elif elem['tag'] == 'button' or elem['role'] == 'button':
+                    color = (46, 204, 113)  # Green for buttons
+                    fill_color = (46, 204, 113, 50)
+                elif elem['tag'] == 'a':
+                    color = (155, 89, 182)  # Purple for links
+                    fill_color = (155, 89, 182, 50)
+                elif elem['type'] == 'range' or elem['role'] == 'slider':
+                    color = (231, 76, 60)  # Red for sliders
+                    fill_color = (231, 76, 60, 50)
+                else:
+                    color = (241, 196, 15)  # Yellow for others
+                    fill_color = (241, 196, 15, 50)
+                
+                # Draw bounding box
+                box_coords = [left, top, left + width, top + height]
+                draw.rectangle(box_coords, outline=color, width=2)
+                
+                # Draw semi-transparent fill
+                overlay = Image.new('RGBA', image.size, (255, 255, 255, 0))
+                overlay_draw = ImageDraw.Draw(overlay)
+                overlay_draw.rectangle(box_coords, fill=fill_color)
+                image = Image.alpha_composite(image.convert('RGBA'), overlay).convert('RGB')
+                draw = ImageDraw.Draw(image)
+                
+                # Draw ID label with background
+                label = f"[{elem['id']}]"
+                
+                # Get text size for background
+                bbox = draw.textbbox((0, 0), label, font=font)
+                text_width = bbox[2] - bbox[0]
+                text_height = bbox[3] - bbox[1]
+                
+                # Position label (top-left of element)
+                label_x = max(5, left)
+                label_y = max(5, top - text_height - 4)
+                
+                # Draw label background
+                draw.rectangle(
+                    [label_x - 2, label_y - 2, label_x + text_width + 2, label_y + text_height + 2],
+                    fill=color
+                )
+                
+                # Draw label text
+                draw.text((label_x, label_y), label, fill='white', font=font)
+                
+                # Draw element info if space available
+                if elem.get('text') and height > 30:
+                    info = elem['text'][:20]
+                    draw.text((left + 5, top + 5), info, fill=color, font=font_small)
+                
+                labeled_count += 1
+            
+            # Add timestamp
+            timestamp = datetime.now().strftime("%H:%M:%S")
+            draw.text((image.width - 100, 10), timestamp, fill='white', font=font)
+            
+            # Convert back to bytes
+            output = io.BytesIO()
+            image.save(output, format='PNG')
+            labeled_bytes = output.getvalue()
+            
+            # Encode to base64
+            base64_str = base64.b64encode(labeled_bytes).decode('utf-8')
+            
+            self.last_screenshot = labeled_bytes
+            
+            if self.debug:
+                print(f"   ?? Created labeled screenshot with {labeled_count} elements")
+            
+            return labeled_bytes, base64_str
+            
+        except Exception as e:
+            print(f"   ?? Labeling error: {e}, using plain screenshot")
+            base64_str = base64.b64encode(screenshot_bytes).decode('utf-8')
+            return screenshot_bytes, base64_str
+    
+    # =========================================================================
+    # DATA EXTRACTION - UNDERSTAND PAGE CONTENT
+    # =========================================================================
+    
+    def extract_page_content(self, page: Page) -> Dict:
+        """
+        Extract structured data from the page (products, forms, etc.)
+        This helps cognition understand what's on the page.
+        """
+        
+        # FIXED: Use raw string for regex patterns
+        js_code = r"""
+        () => {
+            const data = {
+                products: [],
+                forms: [],
+                tables: [],
+                text: '',
+                metadata: {}
+            };
+            
+            // Price pattern
+            const pricePattern = /\$\s*([\d,]+(?:\.\d{2})?)/;
+            const ratingPattern = /([\d.]+)\s*(?:out of|stars?|\/5)/i;
+            
+            // ===== EXTRACT PRODUCTS =====
+            const productSelectors = [
+                'article',
+                '[data-testid*="product"]',
+                '[data-component-type*="product"]',
+                '.product-card',
+                '.product-item',
+                '[class*="ProductCard"]',
+                '[class*="product"]',
+                'li[class*="product"]'
+            ];
+            
+            document.querySelectorAll(productSelectors.join(',')).forEach((card, index) => {
+                if (index > 50) return;
+                
+                const rect = card.getBoundingClientRect();
+                if (rect.width < 100 || rect.height < 80) return;
+                
+                const text = card.innerText || card.textContent || '';
+                const link = card.querySelector('a[href]');
+                
+                if (link && (pricePattern.test(text) || ratingPattern.test(text) || 
+                    text.toLowerCase().includes('add to cart') ||
+                    text.toLowerCase().includes('buy now'))) {
+                    
+                    const priceMatch = text.match(pricePattern);
+                    const ratingMatch = text.match(ratingPattern);
+                    
+                    let title = '';
+                    const heading = card.querySelector('h1, h2, h3, h4, h5, h6');
+                    if (heading) {
+                        title = heading.innerText.trim();
+                    } else if (link) {
+                        title = link.getAttribute('aria-label') || 
+                                link.getAttribute('title') || 
+                                link.innerText.trim();
+                    }
+                    
+                    data.products.push({
+                        title: title.substring(0, 200),
+                        url: link.href,
+                        price: priceMatch ? parseFloat(priceMatch[1].replace(',', '')) : null,
+                        priceText: priceMatch ? priceMatch[0] : null,
+                        rating: ratingMatch ? parseFloat(ratingMatch[1]) : null,
+                        text: text.substring(0, 300),
+                        position: index + 1
+                    });
+                }
+            });
+            
+            // ===== EXTRACT FORMS =====
+            document.querySelectorAll('form').forEach((form, index) => {
+                const inputs = form.querySelectorAll('input, textarea, select');
+                
+                const formData = {
+                    id: form.id || `form-${index}`,
+                    action: form.action || '',
+                    method: form.method || 'get',
+                    fields: []
+                };
+                
+                inputs.forEach(input => {
+                    formData.fields.push({
+                        type: input.type || 'text',
+                        name: input.name || '',
+                        placeholder: input.placeholder || '',
+                        required: input.required || false
+                    });
+                });
+                
+                if (formData.fields.length > 0) {
+                    data.forms.push(formData);
+                }
+            });
+            
+            // ===== EXTRACT TABLES =====
+            document.querySelectorAll('table').forEach((table, index) => {
+                if (index > 5) return;
+                
+                const rows = table.querySelectorAll('tr');
+                if (rows.length > 0 && rows.length < 100) {
+                    const tableData = {
+                        rows: rows.length,
+                        cols: rows[0].querySelectorAll('th, td').length,
+                        hasHeaders: table.querySelectorAll('th').length > 0
+                    };
+                    data.tables.push(tableData);
+                }
+            });
+            
+            // ===== EXTRACT TEXT CONTENT =====
+            const mainContent = document.querySelector('main, article, [role="main"]') || document.body;
+            data.text = mainContent.innerText.substring(0, 2000);
+            
+            // ===== METADATA =====
+            data.metadata = {
+                title: document.title,
+                url: window.location.href,
+                domain: window.location.hostname,
+                hasSearch: !!document.querySelector('input[type="search"], input[placeholder*="search" i]'),
+                hasFilters: document.querySelectorAll('[class*="filter"], [id*="filter"]').length > 0,
+                hasCart: !!document.querySelector('[class*="cart"], [id*="cart"], [aria-label*="cart" i]'),
+                hasPagination: !!document.querySelector('[class*="pagination"], [aria-label*="page"]')
+            };
+            
+            return data;
+        }
+        """
+        
+        try:
+            data = page.evaluate(js_code)
+            
+            if self.debug:
+                print(f"   ?? Extracted: {len(data.get('products', []))} products, "
+                      f"{len(data.get('forms', []))} forms, "
+                      f"{len(data.get('tables', []))} tables")
+            
+            return data
+            
+        except Exception as e:
+            print(f"   ? Data extraction error: {e}")
+            return {
+                'products': [],
+                'forms': [],
+                'tables': [],
+                'text': '',
+                'metadata': {}
+            }
+    
+    # =========================================================================
+    # PAGE ANALYSIS - UNDERSTAND STRUCTURE
+    # =========================================================================
+    
+    def analyze_page_structure(self, page: Page) -> Dict:
+        """
+        Analyze page structure to understand what kind of page this is.
+        """
+        
+        js_code = r"""
+        () => {
+            const analysis = {
+                pageType: 'unknown',
+                hasNavigation: false,
+                hasSearch: false,
+                hasProducts: false,
+                hasForms: false,
+                hasAuth: false,
+                needsScroll: false,
+                hasModals: false,
+                hasCaptcha: false,
+                domain: window.location.hostname,
+                url: window.location.href,
+                scrollPosition: window.scrollY,
+                scrollHeight: document.body.scrollHeight,
+                viewportHeight: window.innerHeight
+            };
+            
+            analysis.hasNavigation = !!document.querySelector('nav, [role="navigation"]');
+            analysis.hasSearch = !!document.querySelector('input[type="search"], input[name*="search"], input[placeholder*="search" i]');
+            
+            const productIndicators = document.querySelectorAll('[class*="product"], [data-testid*="product"], article');
+            analysis.hasProducts = productIndicators.length > 3;
+            
+            analysis.hasForms = document.querySelectorAll('form').length > 0;
+            
+            const pageText = document.body.innerText.toLowerCase();
+            analysis.hasAuth = (
+                pageText.includes('sign in') ||
+                pageText.includes('log in') ||
+                pageText.includes('login') ||
+                !!document.querySelector('input[type="password"]')
+            );
+            
+            analysis.needsScroll = analysis.scrollHeight > analysis.viewportHeight * 1.5;
+            
+            analysis.hasModals = !!document.querySelector('[role="dialog"], [class*="modal"], [class*="popup"], [class*="overlay"]');
+            
+            analysis.hasCaptcha = (
+                pageText.includes('captcha') ||
+                pageText.includes('verify you are human') ||
+                pageText.includes('unusual traffic') ||
+                !!document.querySelector('[class*="captcha"], #captcha')
+            );
+            
+            // Determine page type
+            if (analysis.hasCaptcha) {
+                analysis.pageType = 'captcha';
+            } else if (analysis.hasAuth && !analysis.hasProducts) {
+                analysis.pageType = 'auth';
+            } else if (analysis.hasProducts) {
+                analysis.pageType = 'product_listing';
+            } else if (analysis.hasSearch && !analysis.hasProducts) {
+                analysis.pageType = 'search';
+            } else if (analysis.hasForms) {
+                analysis.pageType = 'form';
+            } else {
+                analysis.pageType = 'content';
+            }
+            
+            return analysis;
+        }
+        """
+        
+        try:
+            analysis = page.evaluate(js_code)
+            
+            if self.debug:
+                print(f"   ?? Page type: {analysis['pageType']}")
+                if analysis.get('hasCaptcha'):
+                    print(f"   ??  CAPTCHA detected!")
+            
+            # Update domain insight in memory
+            if self.memory and analysis.get('hasCaptcha'):
+                domain = extract_domain(page.url)
+                self.memory.update_domain_insight(domain, 0, False, has_bot_detection=True)
+            
+            return analysis
+            
+        except Exception as e:
+            print(f"   ? Page analysis error: {e}")
+            return {'pageType': 'unknown', 'domain': 'unknown'}
+    
+    # =========================================================================
+    # UTILITIES
+    # =========================================================================
+    
+    def save_screenshot(self, filename: str = "screenshot.png"):
+        """Save last screenshot to file"""
+        if self.last_screenshot:
+            with open(filename, 'wb') as f:
+                f.write(self.last_screenshot)
+            print(f"   ?? Saved screenshot: {filename}")
+        else:
+            print("   ?? No screenshot to save")

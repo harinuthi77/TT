@@ -1,0 +1,367 @@
+"""
+Intelligent Agent - Automatically determines execution mode based on task
+"""
+
+import os
+import json
+from pathlib import Path
+from typing import Dict, List, Optional, Tuple
+from datetime import datetime
+
+# from src.core.memory import AgentMemory
+from src.core.vision import Vision
+from src.core.cognition import CognitiveEngine
+from src.agents.single_task_agent import SingleTaskAgent
+from src.agents.continuous_agent import ContinuousAgent
+from src.agents.guided_agent import GuidedAgent
+
+
+class IntelligentAgent:
+    """
+    Self-determining agent that analyzes prompts and chooses the best execution mode.
+    
+    Capabilities:
+    - Analyzes task complexity
+    - Determines optimal mode (single/continuous/guided)
+    - Maintains context across tasks
+    - Learns from previous sessions
+    - Suggests intelligent next actions
+    """
+    
+    def __init__(self, api_key: str = None, debug: bool = True):
+        self.debug = debug
+        self.api_key = api_key or os.getenv('ANTHROPIC_API_KEY')
+        
+        # Initialize core components
+        self.results_dir = Path("results")
+        self.results_dir.mkdir(exist_ok=True)
+        
+        # Memory created by sub-agents individually)
+        self.cognition = CognitiveEngine(self.memory, self.api_key)
+        
+        # Session tracking
+        self.session_history = []
+        self.last_result = None
+        self.current_mode = None
+        
+        print("✅ Intelligent Agent initialized")
+    
+    def execute(self, task: str) -> Dict:
+        """
+        Intelligently execute a task by determining the best approach.
+        
+        Args:
+            task: User's natural language task
+            
+        Returns:
+            Result dictionary with success status and data
+        """
+        
+        print(f"\n🤖 Analyzing task: '{task[:80]}...'")
+        
+        # Step 1: Analyze the task
+        analysis = self._analyze_task(task)
+        
+        print(f"\n📊 Task Analysis:")
+        print(f"   Complexity: {analysis['complexity']}")
+        print(f"   Type: {analysis['task_type']}")
+        print(f"   Recommended Mode: {analysis['recommended_mode']}")
+        print(f"   Reasoning: {analysis['reasoning']}")
+        
+        # Step 2: Select and execute with appropriate mode
+        mode = analysis['recommended_mode']
+        self.current_mode = mode
+        
+        if mode == "single":
+            result = self._execute_single_task(task, analysis)
+        elif mode == "continuous":
+            result = self._execute_continuous(task, analysis)
+        elif mode == "guided":
+            result = self._execute_guided(task, analysis)
+        else:
+            # Default to single task
+            result = self._execute_single_task(task, analysis)
+        
+        # Step 3: Record in session history
+        self.session_history.append({
+            'task': task,
+            'mode': mode,
+            'result': result,
+            'timestamp': datetime.now().isoformat()
+        })
+        
+        self.last_result = result
+        
+        # Step 4: Save session
+        self._save_session()
+        
+        return result
+    
+    def _analyze_task(self, task: str) -> Dict:
+        """
+        Analyze task to determine optimal execution mode.
+        
+        Uses AI to understand:
+        - Task complexity (simple, moderate, complex)
+        - Task type (search, compare, explore, chain)
+        - Best execution mode
+        - Expected number of steps
+        """
+        
+        # Check for continuation keywords
+        continuation_keywords = ['continue', 'next', 'then', 'also', 'after that']
+        is_continuation = any(kw in task.lower() for kw in continuation_keywords)
+        
+        # Check for comparison keywords
+        comparison_keywords = ['compare', 'vs', 'versus', 'difference', 'which is better']
+        is_comparison = any(kw in task.lower() for kw in comparison_keywords)
+        
+        # Check for exploration keywords
+        exploration_keywords = ['explore', 'help me', 'guide', 'show me options', 'interactive']
+        is_exploration = any(kw in task.lower() for kw in exploration_keywords)
+        
+        # Use AI for deeper analysis
+        prompt = f"""Analyze this web automation task and recommend the best execution mode:
+
+Task: "{task}"
+
+Provide analysis in JSON format:
+{{
+    "complexity": "simple|moderate|complex",
+    "task_type": "single_search|comparison|multi_step|exploration",
+    "recommended_mode": "single|continuous|guided",
+    "estimated_steps": <number>,
+    "reasoning": "brief explanation",
+    "requires_user_input": true|false
+}}
+
+Modes:
+- "single": One-off simple search/extraction (e.g., "find headphones under $50")
+- "continuous": Multi-step automated workflow (e.g., "compare prices on 3 sites")
+- "guided": Interactive with user decisions (e.g., "help me explore laptops")
+
+Rules:
+- Use "single" for straightforward searches
+- Use "continuous" for multi-site comparisons or chains
+- Use "guided" for exploratory tasks or when user says "help me"
+"""
+        
+        try:
+            response = self.cognition.client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=500,
+                temperature=0.1,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            
+            answer = response.content[0].text
+            
+            # Extract JSON
+            import re
+            json_match = re.search(r'\{.*\}', answer, re.DOTALL)
+            if json_match:
+                analysis = json.loads(json_match.group())
+                
+                # Override based on keywords if needed
+                if is_continuation and self.session_history:
+                    analysis['recommended_mode'] = self.current_mode or 'continuous'
+                    analysis['reasoning'] += " (Continuing previous task)"
+                
+                if is_exploration:
+                    analysis['recommended_mode'] = 'guided'
+                    analysis['reasoning'] += " (Exploratory interaction detected)"
+                
+                return analysis
+            
+        except Exception as e:
+            if self.debug:
+                print(f"   ⚠️  AI analysis failed: {e}, using rule-based fallback")
+        
+        # Fallback to rule-based analysis
+        complexity = "simple"
+        task_type = "single_search"
+        mode = "single"
+        steps = 10
+        
+        if is_comparison or 'multiple' in task.lower():
+            complexity = "moderate"
+            task_type = "comparison"
+            mode = "continuous"
+            steps = 20
+        
+        if is_exploration:
+            complexity = "moderate"
+            task_type = "exploration"
+            mode = "guided"
+            steps = 15
+        
+        if is_continuation:
+            mode = self.current_mode or "continuous"
+            steps = 15
+        
+        # Multi-step indicators
+        multi_step_words = ['then', 'after', 'next', 'also', 'and then']
+        if any(word in task.lower() for word in multi_step_words):
+            complexity = "complex"
+            task_type = "multi_step"
+            mode = "continuous"
+            steps = 25
+        
+        return {
+            'complexity': complexity,
+            'task_type': task_type,
+            'recommended_mode': mode,
+            'estimated_steps': steps,
+            'reasoning': f"Rule-based: Detected {task_type} task",
+            'requires_user_input': mode == 'guided'
+        }
+    
+    def _execute_single_task(self, task: str, analysis: Dict) -> Dict:
+        """Execute as a single focused task"""
+        
+        print(f"\n🎯 Executing in SINGLE TASK mode")
+        print(f"   Expected steps: ~{analysis['estimated_steps']}")
+        
+        agent = SingleTaskAgent(
+            api_key=self.api_key,
+            
+            debug=self.debug
+        )
+        
+        success, data = agent.run(
+            task=task,
+            max_steps=analysis['estimated_steps']
+        )
+        
+        return {
+            'success': success,
+            'data': data,
+            'mode': 'single',
+            'steps_taken': agent.steps_taken if hasattr(agent, 'steps_taken') else 0
+        }
+    
+        def _execute_continuous(self, task: str, analysis: Dict) -> Dict:
+        """Execute task in continuous mode with retry logic"""
+        from src.agents.continuous_agent import ContinuousAgent
+        
+        agent = ContinuousAgent()
+        
+        # Retry logic with proper error handling
+        max_retries = 2
+        for retry in range(max_retries):
+            try:
+                result = agent.run_continuous(
+                    task=task,
+                    max_iterations=analysis.get('max_iterations', 1)
+                )
+                
+                # Handle None return
+                if result is None:
+                    self.logger.warning(f"Agent returned None (attempt {retry + 1}/{max_retries})")
+                    if retry < max_retries - 1:
+                        self.logger.info("Retrying...")
+                        continue
+                    return {
+                        'status': 'failed',
+                        'reason': 'Agent returned no results',
+                        'mode': 'continuous'
+                    }
+                
+                # Unpack result safely
+                success, data = result
+                
+                return {
+                    'status': 'success' if success else 'failed',
+                    'mode': 'continuous',
+                    'data': data,
+                    'analysis': analysis
+                }
+                
+            except TypeError as e:
+                self.logger.error(f"TypeError (attempt {retry + 1}/{max_retries}): {e}")
+                if retry < max_retries - 1:
+                    self.logger.info("Retrying...")
+                    continue
+                return {
+                    'status': 'error',
+                    'reason': f'Type error: {str(e)}',
+                    'mode': 'continuous'
+                }
+            except Exception as e:
+                self.logger.error(f"Error (attempt {retry + 1}/{max_retries}): {e}")
+                if retry < max_retries - 1:
+                    continue
+                return {
+                    'status': 'error',
+                    'reason': str(e),
+                    'mode': 'continuous'
+                }    def suggest_next_action(self) -> Optional[str]:
+        """
+        Suggest intelligent next action based on last result.
+        
+        Returns:
+            Suggested task string or None
+        """
+        
+        if not self.last_result:
+            return None
+        
+        data = self.last_result.get('data', {})
+        
+        # Build context
+        context = ""
+        if data.get('products'):
+            products_count = len(data['products'])
+            context = f"Found {products_count} products. "
+            
+            if products_count > 0:
+                top = data['products'][0]
+                context += f"Top result: {top.get('title', 'Unknown')[:50]}"
+        
+        prompt = f"""Based on this completed task, suggest ONE specific next action (10 words or less):
+
+Last result: {context}
+Session history: {len(self.session_history)} tasks completed
+
+Suggest something like:
+- "Filter to 4+ star ratings"
+- "Sort by price low to high"
+- "Compare on different site"
+- "Get details on top result"
+
+Respond with JUST the suggestion, or "DONE" if nothing more to do."""
+        
+        try:
+            response = self.cognition.client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=100,
+                temperature=0.3,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            
+            answer = response.content[0].text.strip()
+            
+            if "DONE" in answer.upper():
+                return None
+            
+            return answer
+            
+        except:
+            return None
+    
+    def _save_session(self):
+        """Save session history"""
+        
+        session_file = self.results_dir / "sessions" / f"session_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        session_file.parent.mkdir(exist_ok=True)
+        
+        with open(session_file, 'w') as f:
+            json.dump({
+                'session_start': self.session_history[0]['timestamp'] if self.session_history else None,
+                'tasks': self.session_history
+            }, f, indent=2)
+    
+    def close(self):
+        """Clean up resources"""
+        if self.memory:
+            self.memory.close()

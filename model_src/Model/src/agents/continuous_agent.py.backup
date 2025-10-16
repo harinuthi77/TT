@@ -1,0 +1,542 @@
+# continuous_agent.py
+# =============================================================================
+# CONTINUOUS AUTONOMOUS AGENT
+# Runs continuously, analyzes results, decides next actions, learns from failures
+# =============================================================================
+
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
+import time
+import json
+import os
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+
+from src.core.memory import AgentMemory, extract_domain
+from src.core.vision import Vision
+from src.core.cognition import CognitiveEngine
+from src.core.executor import ActionExecutor
+
+
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+class ContinuousAgent:
+    """
+    Truly autonomous agent that:
+    - Runs continuously without stopping
+    - Analyzes results and decides what to do next
+    - Learns from failures and adapts
+    - Handles bot detection intelligently
+    - Re-detects elements after every action
+    """
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def __init__(self, api_key: str = None, debug: bool = True):
+        self.debug = debug
+        self.results_dir = Path("results")
+        self.results_dir.mkdir(exist_ok=True)
+        
+        print("🤖 Initializing Continuous Autonomous Agent...")
+        
+        self.memory = AgentMemory(str(self.results_dir / "agent_brain.db"))
+        self.vision = Vision(self.memory, debug=debug)
+        self.cognition = CognitiveEngine(self.memory, api_key)
+        
+        self.session_history = []
+        self.current_task = None
+        
+        print("✅ Agent initialized\n")
+    
+    def run_continuous(self, initial_task: str, max_iterations: int = 10):
+        """
+        Run agent continuously - completes task, analyzes results, decides next action
+        """
+        
+        print("=" * 80)
+        print("🚀 CONTINUOUS AUTONOMOUS MODE")
+        print("=" * 80)
+        print(f"Initial Task: {initial_task}")
+        print(f"Max Iterations: {max_iterations}")
+        print("=" * 80 + "\n")
+        
+        with sync_playwright() as p:
+            browser = self._setup_browser(p)
+            page = browser.new_page()
+            executor = ActionExecutor(page, self.memory)
+            
+            current_task = initial_task
+            iteration = 0
+            
+            try:
+                while iteration < max_iterations:
+                    iteration += 1
+                    
+                    print(f"\n{'='*80}")
+                    print(f"🔄 ITERATION {iteration}/{max_iterations}")
+                    print(f"{'='*80}")
+                    print(f"📋 Current Task: {current_task}\n")
+                    
+                    # Execute current task
+                    success, data = self._execute_task(page, executor, current_task)
+                    
+                    # Save results
+                    self._save_iteration_results(iteration, current_task, success, data)
+                    
+                    # Analyze results and decide next action
+                    if success and data:
+                        print(f"\n🤔 Task completed successfully!")
+                        next_task = self._decide_next_task(current_task, data)
+                        
+                        if next_task:
+                            print(f"\n✅ Continuing with: {next_task}")
+                            current_task = next_task
+                            time.sleep(2)  # Brief pause
+                        else:
+                            print(f"\n✅ Mission complete!")
+                            break
+                    else:
+                        print(f"\n⚠️ Task failed. What would you like to do?")
+                        print(f"  1. Retry same task")
+                        print(f"  2. Try simplified version")
+                        print(f"  3. Try different task")
+                        print(f"  4. Stop")
+                        
+                        choice = input(f"\nChoice [2]: ").strip() or "2"
+                        
+                        if choice == "1":
+                            # Retry same task
+                            print(f"🔄 Retrying: {current_task}")
+                        elif choice == "2":
+                            # Simplified
+                            recovery_task = self._plan_recovery(current_task, page.url)
+                            if recovery_task:
+                                current_task = recovery_task
+                                print(f"🔄 Simplified to: {current_task}")
+                            else:
+                                break
+                        elif choice == "3":
+                            # New task
+                            new_task = input("\n📋 New task: ").strip()
+                            if new_task:
+                                current_task = new_task
+                            else:
+                                break
+                        else:
+                            break
+                    
+                    time.sleep(2)  # Brief pause between iterations
+                
+                print(f"\n{'='*80}")
+                print(f"🏁 CONTINUOUS SESSION COMPLETE")
+                print(f"{'='*80}")
+                print(f"Total Iterations: {iteration}")
+                print(f"Results saved to: {self.results_dir}")
+                
+            except KeyboardInterrupt:
+                print(f"\n\n⏸️ Stopped by user")
+            finally:
+                input("\nPress Enter to close browser...")
+                browser.close()
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _execute_task(self, page, executor, task: str, max_steps: int = 25):
+        """Execute a single task with full learning and adaptation"""
+        
+        self.cognition.reset_conversation()
+        steps_taken = 0
+        task_success = False
+        final_data = None
+        
+        for step in range(1, max_steps + 1):
+            steps_taken = step
+            
+            print(f"\n{'─'*80}")
+            print(f"📍 STEP {step}/{max_steps}")
+            print(f"{'─'*80}\n")
+            
+            time.sleep(1.5)
+            
+            # ===== PHASE 1: SEE (re-detect elements EVERY step) =====
+            print("👁️  VISION PHASE")
+            
+            elements = self.vision.detect_all_elements(page)
+            
+            if len(elements) == 0:
+                print("   ⚠️ No elements detected - page may not be loaded")
+                time.sleep(2)
+                elements = self.vision.detect_all_elements(page)  # Retry
+            
+            screenshot_bytes, screenshot_b64 = self.vision.create_labeled_screenshot(page, elements)
+            
+            if not screenshot_b64:
+                print("   ❌ Failed to capture screenshot - skipping step")
+                continue
+            
+            page_data = self.vision.extract_page_content(page)
+            page_analysis = self.vision.analyze_page_structure(page)
+            
+            # Check for bot detection
+            if page_analysis.get('hasCaptcha'):
+                print("   🚨 CAPTCHA DETECTED!")
+                decision = self._handle_captcha(page, task)
+                if decision == 'abort':
+                    print("   ❌ Cannot proceed - CAPTCHA requires manual intervention")
+                    return False, None
+                time.sleep(5)  # Wait for user to solve
+            
+            # ===== PHASE 2: THINK =====
+            print("\n🧠 COGNITION PHASE")
+            
+            decision = self.cognition.think(
+                page=page,
+                task=task,
+                screenshot_b64=screenshot_b64,
+                elements=elements,
+                page_data=page_data,
+                page_analysis=page_analysis
+            )
+            
+            if decision['action'] == 'done':
+                print("\n✅ Task complete!")
+                task_success = True
+                final_data = page_data
+                break
+            
+            # ===== PHASE 3: ACT =====
+            print("\n⚡ EXECUTION PHASE")
+            
+            # Fix decision if it's giving descriptions instead of element IDs
+            if decision['action'] == 'click':
+                details = decision['details'].strip()
+                # If details is long text instead of a number, try to extract element ID
+                if len(details) > 10 and not details.isdigit():
+                    # Look for element ID in the text
+                    import re
+                    match = re.search(r'\[(\d+)\]', details)
+                    if match:
+                        decision['details'] = match.group(1)
+                        print(f"   🔧 Extracted element ID: {decision['details']}")
+                    else:
+                        # Try to find element by matching text
+                        search_text = details[:50].lower()
+                        for elem in elements[:30]:
+                            if elem.get('visible') and elem.get('text'):
+                                if search_text in elem['text'].lower():
+                                    decision['details'] = str(elem['id'])
+                                    print(f"   🔧 Found element by text: [{elem['id']}]")
+                                    break
+            
+            success, message = executor.execute(decision, elements)
+            print(f"   {message}")
+            
+            if not success:
+                print(f"   🔧 Learning from failure...")
+                # Agent automatically learns from failure via memory
+            
+            # Check if stuck
+            is_stuck, reason = self.memory.is_stuck()
+            if is_stuck:
+                print(f"\n⚠️ STUCK DETECTED: {reason}")
+                print(f"   🔄 Attempting different approach...")
+        
+        return task_success, final_data or page_data
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _decide_next_task(self, completed_task: str, results: Dict) -> Optional[str]:
+        """
+        Ask user what to do next, with AI suggestions
+        """
+        
+        # Build results summary
+        products_summary = ""
+        if results.get('products'):
+            products_summary = f"Found {len(results['products'])} products:\n"
+            for i, p in enumerate(results['products'][:5], 1):
+                title = p.get('title', 'Unknown')[:60]
+                price = p.get('price', 'N/A')
+                rating = p.get('rating', 'N/A')
+                products_summary += f"{i}. {title}\n   ${price} - ⭐{rating}\n"
+        
+        print(f"\n{'='*80}")
+        print(f"📊 TASK COMPLETED")
+        print(f"{'='*80}")
+        print(f"Task: {completed_task}")
+        print(f"\nResults:")
+        if products_summary:
+            print(products_summary)
+        else:
+            print(f"   Products: {len(results.get('products', []))}")
+            print(f"   Forms: {len(results.get('forms', []))}")
+        print(f"{'='*80}")
+        
+        # Get AI suggestion
+        print(f"\n🤖 Getting AI suggestion for next action...")
+        ai_suggestion = self._get_ai_suggestion(completed_task, results)
+        
+        if ai_suggestion:
+            print(f"\n💡 AI Suggests: {ai_suggestion}")
+        
+        # Ask user
+        print(f"\n{'='*80}")
+        print(f"What would you like to do next?")
+        print(f"{'='*80}")
+        print(f"Options:")
+        print(f"  1. Continue with AI suggestion")
+        print(f"  2. Enter your own next task")
+        print(f"  3. Stop here (mission complete)")
+        
+        choice = input(f"\nChoice [1]: ").strip() or "1"
+        
+        if choice == "1" and ai_suggestion:
+            return ai_suggestion
+        elif choice == "2":
+            next_task = input("\n📋 Next task: ").strip()
+            return next_task if next_task else None
+        else:
+            return None  # Stop
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _get_ai_suggestion(self, completed_task: str, results: Dict) -> Optional[str]:
+        """Get AI suggestion for next task"""
+        
+        products_summary = ""
+        if results.get('products'):
+            products_summary = f"Found {len(results['products'])} products:\n"
+            for p in results['products'][:3]:
+                products_summary += f"- {p.get('title', 'Unknown')[:50]} (${p.get('price', 'N/A')})\n"
+        
+        prompt = f"""Completed task: {completed_task}
+
+Results: {products_summary}
+
+Suggest ONE specific next action. Examples:
+- "Filter to show only products with 4+ stars"
+- "Sort results by price low to high"
+- "Compare prices on bestbuy.com"
+- "Get more details on the top product"
+
+Respond with ONLY the suggested task (one sentence), or "COMPLETE" if fully satisfied."""
+        
+        try:
+            response = self.cognition.client.messages.create(
+                model="claude-sonnet-4-5-20250929",
+                max_tokens=200,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            
+            answer = response.content[0].text.strip()
+            
+            if "COMPLETE" in answer.upper():
+                return False, {"status": "failed", "reason": "Task failed"}
+            else:
+                return answer
+                
+        except Exception as e:
+            print(f"   (AI suggestion failed: {e})")
+            return False, {"status": "failed", "reason": "Task failed"}
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _handle_captcha(self, page, task: str) -> str:
+        """
+        Intelligent CAPTCHA handling
+        """
+        
+        print("\n🤖 CAPTCHA DETECTED - Adaptive Response:")
+        print("   Options:")
+        print("   1. Wait for manual solve (30 seconds)")
+        print("   2. Try alternative approach")
+        print("   3. Abort task")
+        
+        # For now, give user time to solve
+        print("\n   ⏳ Waiting 30 seconds for manual CAPTCHA solve...")
+        
+        for i in range(30, 0, -5):
+            print(f"   {i} seconds remaining...")
+            time.sleep(5)
+            
+            # Check if CAPTCHA is gone
+            still_has_captcha = page.evaluate(
+                "() => document.body.innerText.toLowerCase().includes('captcha')"
+            )
+            
+            if not still_has_captcha:
+                print("   ✅ CAPTCHA solved!")
+                return 'continue'
+        
+        print("   ⏰ Timeout - CAPTCHA still present")
+        return 'abort'
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _plan_recovery(self, failed_task: str, current_url: str) -> Optional[str]:
+        """Plan recovery from failure"""
+        
+        domain = extract_domain(current_url)
+        
+        # Check domain insights
+        insight = self.memory.get_domain_insight(domain)
+        
+        if insight and insight.get('has_bot_detection'):
+            print(f"   🚨 {domain} has known bot detection")
+            print(f"   💡 Suggestion: Try alternative site or manual verification")
+            return False, {"status": "failed", "reason": "Task failed"}
+        
+        # Try simplified version of task
+        print(f"   🔄 Attempting simplified version of task...")
+        simplified = failed_task.split('and')[0].strip()  # Take first part
+        return simplified
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _save_iteration_results(self, iteration: int, task: str, success: bool, data: Dict):
+        """Save results for each iteration"""
+        
+        filename = self.results_dir / f"iteration_{iteration}_{datetime.now().strftime('%H%M%S')}.json"
+        
+        result = {
+            'iteration': iteration,
+            'task': task,
+            'success': success,
+            'timestamp': datetime.now().isoformat(),
+            'data': data
+        }
+        
+        with open(filename, 'w') as f:
+            json.dump(result, f, indent=2)
+        
+        print(f"\n💾 Results saved: {filename}")
+    
+        # Ensure we always return a tuple
+        return True, {
+            'status': 'completed',
+            'task': initial_task,
+            'iterations': iteration if 'iteration' in locals() else 0,
+            'total_steps': step if 'step' in locals() else 0,
+            'final_state': state if 'state' in locals() else {}
+        }
+
+    def _setup_browser(self, playwright):
+        """Setup browser with anti-detection"""
+        
+        print("🌐 Launching browser with anti-detection...")
+        
+        browser = playwright.chromium.launch(
+            headless=False,
+            args=[
+                '--disable-blink-features=AutomationControlled',
+                '--disable-dev-shm-usage',
+                '--start-maximized'
+            ]
+        )
+        
+        context = browser.new_context(
+            viewport={'width': 1920, 'height': 1080},
+            user_agent='Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        )
+        
+        # Anti-detection scripts
+        page = context.new_page()
+        page.add_init_script("""
+            Object.defineProperty(navigator, 'webdriver', {get: () => undefined});
+            window.chrome = {runtime: {}};
+        """)
+        
+        print("   ✅ Browser ready\n")
+        
+        return browser
+
+
+# =============================================================================
+# CLI INTERFACE
+# =============================================================================
+
+def main():
+    import sys
+    
+    if not os.getenv('ANTHROPIC_API_KEY'):
+        print("❌ Error: ANTHROPIC_API_KEY not set")
+        print("Set it with: export ANTHROPIC_API_KEY='your-key'")
+        sys.exit(1)
+    
+    print("\n🤖 CONTINUOUS AUTONOMOUS AGENT")
+    print("=" * 60)
+    print("This agent runs continuously, analyzing results")
+    print("and deciding its own next actions!")
+    print("=" * 60)
+    
+    task = input("\n💬 Initial task: ").strip()
+    
+    if not task:
+        print("❌ No task provided")
+        sys.exit(1)
+    
+    iterations = input("🔢 Max iterations [10]: ").strip()
+    max_iterations = int(iterations) if iterations else 10
+    
+    agent = ContinuousAgent(debug=True)
+    agent.run_continuous(task, max_iterations=max_iterations)
+
+
+if __name__ == "__main__":
+    main()
